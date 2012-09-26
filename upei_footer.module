@@ -45,3 +45,9 @@ $subject || $content) {
     break;
   }
 }
+
+function upei_footer_preprocess_upei_footer_footer($vars) {
+  $request = drupal_http_request('http://students.upei.ca/files/misc/footer.php');
+  $data = $request->data;
+  $vars['external_php'] = $data;
+}
