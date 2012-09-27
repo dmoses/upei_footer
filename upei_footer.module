@@ -48,6 +48,9 @@ $subject || $content) {
 
 function upei_footer_preprocess_upei_footer_footer($vars) {
   $request = drupal_http_request('http://students.upei.ca/files/misc/footer.php');
+  dsm($request);
   $data = $request->data;
-  $vars['external_php'] = $data;
+  if ($request->code == 200) {
+    $vars['external_php'] = $data;
+  }
 }
