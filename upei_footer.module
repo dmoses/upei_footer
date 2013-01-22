@@ -10,40 +10,30 @@ function upei_footer_theme() {
   );
 }
 
-/*
- * Implementation of hook_block().
- */
-function upei_footer_block($op = 'list', $delta = 0, $edit = array()) {
-  switch ($op) {
-    case 'list':
-      return array(
-        0 => array(
-          'info' => t('UPEI footer'),
-        ),
-     );
-    case 'view':
-      
+function upei_footer_block_info() {
+  $blocks['upei_footer'] = array(
+    'info' => t('UPEI footer'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
+  return $blocks;
+}
 
-$subject = '';
-      $content = '';
-      switch (
+function upei_footer_block_view($delta = '') {
+  // This example is adapted from node.module.
+  $block = array();
 
-$delta) {
-        case 0:
-          $content = theme('upei_footer_footer');
-          $subject = t('');
-        break;
-      } 
-    if (
-
-$subject || $content) {
-      return array(
-        'subject' => $subject,
-        'content' => $content,
+  switch ($delta) {
+    case 0:
+      $block['subject'] = t('');
+      $block['content'] = array(
+        '#theme' => 'upei_footer_footer', 
+        '#url' => 'upei_footer_footer.tpl.php', 
+        '#title' => t('UPEI footer'),
       );
-    }
     break;
   }
+
+  return $block;
 }
 
 function upei_footer_preprocess_upei_footer_footer($vars) {
