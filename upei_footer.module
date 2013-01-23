@@ -1,5 +1,5 @@
 <?php
-// $Id: upei_footer.module,v 1.0 2012/09/26 11:09:08 krisbulman Exp $
+// $Id: upei_footer.module,v 1.0 2013/01/22 17:25:08 krisbulman Exp $
 
 /*
  * Implementation of hook_theme().
@@ -23,24 +23,21 @@ function upei_footer_block_view($delta = '') {
   $block = array();
 
   switch ($delta) {
-    case 0:
+    case 'upei_footer':
       $block['subject'] = t('');
-      $block['content'] = array(
-        '#theme' => 'upei_footer_footer', 
-        '#url' => 'upei_footer_footer.tpl.php', 
-        '#title' => t('UPEI footer'),
-      );
+      $block['content'] = theme('upei_footer_footer');
+      return $block;
     break;
   }
 
-  return $block;
 }
 
-function upei_footer_preprocess_upei_footer_footer($vars) {
+function upei_footer_preprocess_upei_footer_footer(&$variables) {
   $request = drupal_http_request('http://students.upei.ca/files/misc/footer.php');
+  dsm($request);
   $data = $request->data;
   $request_code = $request->code;
   if ($request_code === "200") {
-    $vars['external_php'] = $data;
+    $variables['external_php'] = $data;
   }
 }
